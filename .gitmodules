@@ -1,6 +1,6 @@
 [submodule "emacs.d/manually/column-enforce-mode"]
 	path = emacs.d/manually/column-enforce-mode
-	url = git@github.com:jordonbiondo/column-enforce-mode.git
+	url = https://github.com/jordonbiondo/column-enforce-mode.git
 [submodule "emacs.d/manually/js3-mode"]
 	path = emacs.d/manually/js3-mode
-	url = git://github.com/thomblake/js3-mode.git
+	url = https://github.com/thomblake/js3-mode.git
