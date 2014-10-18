@@ -1,0 +1,3 @@
+[submodule "emacs.d/manually/column-enforce-mode"]
+	path = emacs.d/manually/column-enforce-mode
+	url = git@github.com:jordonbiondo/column-enforce-mode.git
