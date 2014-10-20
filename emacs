@@ -181,6 +181,12 @@
  '(js3-curly-indent-offset 2))
 
 ; --------------------------------------------------------------------------------
+;; File Associations
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("emacs" . lisp-mode))
+(add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
+
+; --------------------------------------------------------------------------------
 ;;; Graveyard - Stuff not in use or temporarily-permanently disabled
 
 ;; ;;; find file at point
