@@ -115,7 +115,7 @@
 (setq haskell-stylish-on-save t)
 
 ;;; ghc-mod && haskell flymake
-;; (autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-init "ghc" nil t)
 ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 ;;; structured-haskell-mode
