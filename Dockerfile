@@ -10,4 +10,5 @@ ADD zshrc /root/.zshrc
 ADD emacs /root/.emacs
 ADD emacs.d /root/.emacs.d
 RUN emacs --batch -f batch-byte-compile ~/.emacs.d/manually/js3-mode/js3.el
+ENV PATH /root/.cabal/bin:$PATH
 CMD ["zsh"]
