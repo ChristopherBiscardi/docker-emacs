@@ -1,0 +1,248 @@
+* Basics
+** Package Repositories:
+  #+BEGIN_SRC emacs-lisp
+    (require 'package)
+    (add-to-list 'package-archives
+                 '("marmalade" . "http://marmalade-repo.org/packages/"))
+    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  #+END_SRC
+** Manually managed dependencies
+  #+BEGIN_SRC emacs-lisp
+  ;(add-to-list 'load-path "~/.emacs.d/manually/structured-haskell-mode/elisp")
+  (add-to-list 'load-path "~/.emacs.d/manually/js3-mode")
+  (add-to-list 'load-path "~/.emacs.d/manually/column-enforce-mode")
+  (package-initialize)
+  #+END_SRC
+** require Common Lisp, request and json
+  #+BEGIN_SRC emacs-lisp
+  ;;; Fix for some packages like ace-jump-mode
+  (require 'cl)
+  (require 'request)
+  (require 'json)
+  #+END_SRC
+* Basic Tooling, General Settings and One Liners
+** Window Movement (Shift+Direction)
+  #+BEGIN_SRC emacs-lisp
+  (windmove-default-keybindings)
+  (setq windmove-wrap-around t)
+  #+END_SRC
+** Diable Menu Bar
+  #+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+  #+END_SRC
+** Enable Line Numbers (column and row)
+  #+BEGIN_SRC emacs-lisp
+  (global-linum-mode 1)
+  (setq column-number-mode t)
+  #+END_SRC  
+** rainbow-delimiters
+  #+BEGIN_SRC emacs-lisp
+  (require 'rainbow-delimiters)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  #+END_SRC
+** rainbow representations of hex/etc colors
+  #+BEGIN_SRC emacs-lisp
+  (add-hook 'less-mode-hook 'rainbow-mode)
+  (add-hook 'sass-mode-hook 'rainbow-mode)
+  #+END_SRC
+** Saves
+   Make Saves go in another directory
+   Make more of them
+  #+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . "~/.saves")))
+  (setq backup-by-copying t)
+  (setq delete-old-versions t
+    kept-new-versions 6
+    kept-old-versions 2
+    version-control t)
+  #+END_SRC
+** no tabs (only spaces)
+  #+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  #+END_SRC
+** Keybindings
+*** (C-z) Don't suspend on C-z. I do this too often.
+  #+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-z"))
+  #+END_SRC
+*** (C-SPC) Ace-Jump-Mode
+  #+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+  #+END_SRC
+*** (M-x) smex
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'smex "smex"
+    "Smex is a M-x enhancement for Emacs, it provides a convenient interface to your recently and most frequently used commands.")
+  (global-set-key (kbd "M-x") 'smex)
+  #+END_SRC
+** YASnippets
+  #+BEGIN_SRC emacs-lisp
+  (yas-global-mode 1)
+  #+END_SRC
+** ido / flx-ido
+*** requires
+  #+BEGIN_SRC emacs-lisp
+  (require 'ido)
+  (require 'flx-ido)
+  #+END_SRC
+*** basic settings
+  #+BEGIN_SRC emacs-lisp
+  (setq ido-everywhere nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-file-extensions-order '(".hs" ".tpl" ".java" ".js" ".el" ".xml")
+        ido-use-filename-at-point 'guess
+        ido-ignore-extensions t
+        ido-use-faces t)
+  (ido-mode 'buffer)
+  #+END_SRC
+*** Vertical completion menu
+  #+BEGIN_SRC emacs-lisp
+  (require 'ido-vertical-mode)
+  (ido-vertical-mode)
+  #+END_SRC
+*** Ubiquitous ido
+  #+BEGIN_SRC emacs-lisp
+  (require 'ido-ubiquitous)
+  (ido-ubiquitous)
+  #+END_SRC
+** Projectile
+  #+BEGIN_SRC emacs-lisp
+  (require 'projectile)
+  (projectile-global-mode)
+  (setq projectile-enable-caching nil
+        projectile-globally-ignored-directories '("target" ".hsenv" "dist" ".vagrant"))
+  (global-set-key "\C-cf" 'projectile-find-file)
+  #+END_SRC
+** ack
+  #+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/path/to/full-ack")
+  (autoload 'ack-same "full-ack" nil t)
+  (autoload 'ack "full-ack" nil t)
+  (autoload 'ack-find-same-file "full-ack" nil t)
+  (autoload 'ack-find-file "full-ack" nil t)
+  #+END_SRC
+** 80 column rule
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'column-enforce-mode "column-enforce-mode" nil t)
+  #+END_SRC
+** Shell Modifications
+  #+BEGIN_SRC emacs-lisp
+  (setq shell-file-name "zsh")
+  (setq shell-command-switch "-ic")
+  #+END_SRC
+* ORG-MODE
+  #+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)
+   (emacs-lisp . t)
+   (awk . t)
+   (css . t)
+   (js . t)))
+  #+END_SRC
+* LANG
+** Haskell Modes
+** Haskell Mode
+*** Indentation
+  #+BEGIN_SRC emacs-lisp
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  #+END_SRC
+*** (C-c C-c) haskell-compile
+  #+BEGIN_SRC emacs-lisp
+  (eval-after-load "haskell-mode"
+      '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+  (eval-after-load "haskell-cabal"
+      '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+  #+END_SRC
+** Stylish-Haskell (on-save)
+  #+BEGIN_SRC emacs-lisp
+  (setq haskell-stylish-on-save t)
+  #+END_SRC
+** ghc-mod
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'ghc-init "ghc" nil t)
+  #+END_SRC
+** Graveyard
+*** Flymake
+  #+BEGIN_SRC emacs-lisp
+  ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
+  #+END_SRC
+*** structured-haskell-mode
+  #+BEGIN_SRC emacs-lisp
+  ;; (require 'shm)
+  ;; (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+  ;; (setq shm-program-name "structured-haskell-mode")
+  #+END_SRC
+** JavaScript
+** js3-mode
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'js3-mode "js3" nil t)
+  (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+  (custom-set-variables
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+   '(js3-indent-level 0)
+   '(js3-auto-indent-p t)
+   '(js3-indent-on-enter-key t) ; fix indenting before moving on
+   '(js3-enter-indents-newline t) ; don't need to push tab before typing
+   '(js3-consistent-level-indent-inner-bracket t)
+   '(js3-lazy-commas t)
+   '(js3-expr-indent-offset 2)
+   '(js3-paren-indent-offset 2)
+   '(js3-square-indent-offset 2)
+   '(js3-curly-indent-offset 2))
+  #+END_SRC
+** Paredit
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  #+END_SRC
+* Custom Code
+** Region to Gist 
+  #+BEGIN_SRC emacs-lisp
+  (defun region-to-gist (start end)
+    "Sends region to Gist"
+    (interactive "r")
+    (gist-req (buffer-substring-no-properties start end)))
+  
+  (defun gist-test (buf)
+    (message "%S" `(:content ,buf)))
+  
+  (defun gist-req (buf)
+    (request
+         "https://api.github.com/gists"
+         :type "POST"
+         :data (json-encode `(:description "Created with Christopher Biscardi's region-to-gist"
+          :public t
+          :files (:example.el (:content ,buf))))
+         ;; :data "key=value&key2=value2"  ; this is equivalent
+         :parser 'json-read
+         :success (function*
+          (lambda (&key data &allow-other-keys)
+  	   (message "I sent: %S" (assoc-default 'html_url data)))))
+    nil)
+  #+END_SRC
+* File Associations
+  #+BEGIN_SRC emacs-lisp
+    (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+    (add-to-list 'auto-mode-alist '("emacs" . lisp-mode))
+    (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
+    (add-to-list 'auto-mode-alist '("\\.purs$" . purescript-mode))
+    (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  #+END_SRC
+* Graveyard
+  Stuff not in use or temporarily-permanently disabled
+  #+BEGIN_SRC emacs-lisp
+  ;; ;;; find file at point
+  ;; (require 'ffap)
+  ;; ;; rebind C-x C-f and others to the ffap bindings (see variable ffap-bindings)
+  ;; (ffap-bindings)
+  #+END_SRC
