@@ -8,7 +8,7 @@
   #+END_SRC
 ** Manually managed dependencies
   #+BEGIN_SRC emacs-lisp
-  ;(add-to-list 'load-path "~/.emacs.d/manually/structured-haskell-mode/elisp")
+  (add-to-list 'load-path "~/.emacs.d/manually/shm/elisp")
   (add-to-list 'load-path "~/.emacs.d/manually/js3-mode")
   (add-to-list 'load-path "~/.emacs.d/manually/column-enforce-mode")
   (package-initialize)
@@ -143,57 +143,58 @@
   #+END_SRC
 * LANG
 ** Haskell Modes
-** Haskell Mode
-*** Indentation
-  #+BEGIN_SRC emacs-lisp
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-  #+END_SRC
-*** (C-c C-c) haskell-compile
-  #+BEGIN_SRC emacs-lisp
-  (eval-after-load "haskell-mode"
-      '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
-
-  (eval-after-load "haskell-cabal"
-      '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
-  #+END_SRC
-** Stylish-Haskell (on-save)
-  #+BEGIN_SRC emacs-lisp
-  (setq haskell-stylish-on-save t)
-  #+END_SRC
-** ghc-mod
-  #+BEGIN_SRC emacs-lisp
-  (autoload 'ghc-init "ghc" nil t)
-  #+END_SRC
-** Graveyard
-*** Flymake
-  #+BEGIN_SRC emacs-lisp
-  ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
-  #+END_SRC
+*** Haskell Mode
+**** Indentation
+     #+BEGIN_SRC emacs-lisp
+       ; haskell-mode indentation is incompatible with structured-haskell-mode
+       ; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+     #+END_SRC
+**** (C-c C-c) haskell-compile
+     #+BEGIN_SRC emacs-lisp
+       (eval-after-load "haskell-mode"
+           '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+       
+       (eval-after-load "haskell-cabal"
+           '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+     #+END_SRC
 *** structured-haskell-mode
-  #+BEGIN_SRC emacs-lisp
-  ;; (require 'shm)
-  ;; (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-  ;; (setq shm-program-name "structured-haskell-mode")
-  #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (require 'shm)
+      (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+      (setq shm-program-name "structured-haskell-mode")
+    #+END_SRC
+*** Stylish-Haskell (on-save)
+    #+BEGIN_SRC emacs-lisp
+      (setq haskell-stylish-on-save t)
+    #+END_SRC
+*** ghc-mod
+   #+BEGIN_SRC emacs-lisp
+   (autoload 'ghc-init "ghc" nil t)
+   #+END_SRC
+*** Graveyard
+**** Flymake
+   #+BEGIN_SRC emacs-lisp
+   ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
+   #+END_SRC
 ** JavaScript
-** js3-mode
-  #+BEGIN_SRC emacs-lisp
-  (autoload 'js3-mode "js3" nil t)
-  (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
-  (custom-set-variables
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-   '(js3-indent-level 0)
-   '(js3-auto-indent-p t)
-   '(js3-indent-on-enter-key t) ; fix indenting before moving on
-   '(js3-enter-indents-newline t) ; don't need to push tab before typing
-   '(js3-consistent-level-indent-inner-bracket t)
-   '(js3-lazy-commas t)
-   '(js3-expr-indent-offset 2)
-   '(js3-paren-indent-offset 2)
-   '(js3-square-indent-offset 2)
-   '(js3-curly-indent-offset 2))
-  #+END_SRC
+*** js3-mode
+   #+BEGIN_SRC emacs-lisp
+   (autoload 'js3-mode "js3" nil t)
+   (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+   (custom-set-variables
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+    '(js3-indent-level 0)
+    '(js3-auto-indent-p t)
+    '(js3-indent-on-enter-key t) ; fix indenting before moving on
+    '(js3-enter-indents-newline t) ; don't need to push tab before typing
+    '(js3-consistent-level-indent-inner-bracket t)
+    '(js3-lazy-commas t)
+    '(js3-expr-indent-offset 2)
+    '(js3-paren-indent-offset 2)
+    '(js3-square-indent-offset 2)
+    '(js3-curly-indent-offset 2))
+   #+END_SRC
 ** Paredit
   #+BEGIN_SRC emacs-lisp
   (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
@@ -237,6 +238,7 @@
     (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
     (add-to-list 'auto-mode-alist '("\\.purs$" . purescript-mode))
     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+    (add-to-list 'auto-mode-alist '("Dockerfile" . shell-script-mode))
   #+END_SRC
 * Graveyard
   Stuff not in use or temporarily-permanently disabled
