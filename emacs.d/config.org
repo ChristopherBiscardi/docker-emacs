@@ -238,6 +238,9 @@
     (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
     (add-to-list 'auto-mode-alist '("\\.purs$" . purescript-mode))
     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+    (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+    (add-to-list 'auto-mode-alist '("\\.rc$" . restclient-mode))
+    (add-to-list 'auto-mode-alist '("\\.json$" . js3-mode))
     (add-to-list 'auto-mode-alist '("Dockerfile" . shell-script-mode))
   #+END_SRC
 * Graveyard
