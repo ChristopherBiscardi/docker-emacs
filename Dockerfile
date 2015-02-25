@@ -4,7 +4,7 @@ RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/s
 
 # Updates
 RUN apt-get update
-RUN apt-get install git zsh make -y
+RUN apt-get install git zsh make graphviz -y
 
 # Install Emacs
 RUN apt-get -t wheezy-backports install "emacs24" -y
