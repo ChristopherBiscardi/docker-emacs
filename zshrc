@@ -21,3 +21,4 @@ prompt_dir() {
   prompt_segment blue black '%c'
 }
 
+source /root/.nvm/nvm

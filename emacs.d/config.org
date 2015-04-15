@@ -141,6 +141,28 @@
    (css . t)
    (js . t)))
   #+END_SRC
+* Flycheck
+** boot it
+  #+BEGIN_SRC emacs-lisp
+    (require 'flycheck)
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    ;; turn on flychecking globally
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+
+    ;; disable jshint since we prefer eslint checking
+    (setq-default flycheck-disabled-checkers
+                  (append flycheck-disabled-checkers
+                          '(javascript-jshint)))
+
+    ;; use eslint with web-mode for jsx files
+    (setq flycheck-checkers '(javascript-eslint))
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+    ;; disable json-jsonlist checking for json files
+    (setq-default flycheck-disabled-checkers
+                  (append flycheck-disabled-checkers
+                          '(json-jsonlist)))
+  #+END_SRC
 * LANG
 ** Haskell Modes
 *** Haskell Mode
@@ -195,6 +217,17 @@
     '(js3-square-indent-offset 2)
     '(js3-curly-indent-offset 2))
    #+END_SRC
+*** js2-mode
+   #+BEGIN_SRC emacs-lisp
+     ;; adjust indents for web-mode to 2 spaces
+     (defun my-web-mode-hook ()
+       "Hooks for Web mode. Adjust indents"
+         ;;; http://web-mode.org/
+       (setq web-mode-markup-indent-offset 2)
+       (setq web-mode-css-indent-offset 2)
+       (setq web-mode-code-indent-offset 2))
+     (add-hook 'web-mode-hook  'my-web-mode-hook)
+   #+END_SRC
 ** Paredit
   #+BEGIN_SRC emacs-lisp
   (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
@@ -241,7 +274,7 @@
     (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
     (add-to-list 'auto-mode-alist '("\\.rc$" . restclient-mode))
     (add-to-list 'auto-mode-alist '("\\.json$" . js3-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx$" . jsx-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
     (add-to-list 'auto-mode-alist '("Dockerfile" . shell-script-mode))
   #+END_SRC
 * Graveyard
