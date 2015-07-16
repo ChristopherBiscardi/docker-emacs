@@ -1,10 +1,10 @@
-FROM haskell:7.8
+FROM haskell:7.10
 
 RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
 
 # Updates
 RUN apt-get update
-RUN apt-get install curl git zsh make graphviz -y
+RUN apt-get install curl git zsh make graphviz bzip2 -y
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # clone nvm/node
@@ -37,6 +37,11 @@ ENV PATH /root/.cabal/bin:$PATH
 RUN git clone https://github.com/chrisdone/structured-haskell-mode.git ~/.emacs.d/manually/shm
 RUN cd ~/.emacs.d/manually/shm && cabal install
 RUN cd ~/.emacs.d/manually/shm/elisp && make
+
+# install sbcl
+RUN curl -O http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-linux-binary.tar.bz2
+RUN cd /opt && bzip2 -cd sbcl-1.2.11-x86-linux-binary.tar.bz2 | tar xvf -
+RUN ./opt/sbcl-1.2.11-x86-linux-binary/install
 
 # Default to zsh when running a container
 CMD ["zsh"]
