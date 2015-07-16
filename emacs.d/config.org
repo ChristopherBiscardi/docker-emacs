@@ -77,7 +77,10 @@
   #+END_SRC
 ** YASnippets
   #+BEGIN_SRC emacs-lisp
-  (yas-global-mode 1)
+    (setq yas-snippet-dirs
+          '("~/.emacs.d/snippets"                 ;; personal snippets
+           ))
+    (yas-global-mode 1)
   #+END_SRC
 ** ido / flx-ido
 *** requires
