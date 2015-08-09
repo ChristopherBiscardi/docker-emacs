@@ -78,7 +78,8 @@
 ** YASnippets
   #+BEGIN_SRC emacs-lisp
     (setq yas-snippet-dirs
-          '("~/.emacs.d/snippets"                 ;; personal snippets
+          '("~/.emacs.d/snippets" ;; personal snippets
+            "/opt/snippets"       ;; dynamically mounted snippets
            ))
     (yas-global-mode 1)
   #+END_SRC

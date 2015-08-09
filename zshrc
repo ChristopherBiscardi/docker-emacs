@@ -1,7 +1,7 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 
-plugins=(git brew cabal docker encode64 gem jira lein npm pod pip python tmuxinator)
+plugins=(git brew cabal docker encode64 gem lein npm pod pip python tmuxinator)
 
 source $ZSH/oh-my-zsh.sh
 
