@@ -1,4 +1,4 @@
-FROM haskell:7.8
+FROM haskell:7.10
 
 RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
 
