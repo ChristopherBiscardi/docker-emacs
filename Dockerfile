@@ -10,8 +10,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # clone nvm/node
 RUN git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
 RUN source /root/.nvm/nvm.sh && \
-    nvm install v0.10.38 && \
-    nvm alias default v0.10.38 && \
+    nvm install v5.0.0 && \
+    nvm alias default v5.0.0 && \
     npm install -g eslint babel-eslint
 # Install Emacs
 RUN apt-get install "emacs24" -y
