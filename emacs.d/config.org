@@ -232,16 +232,25 @@
        (setq web-mode-code-indent-offset 2))
      (add-hook 'web-mode-hook  'my-web-mode-hook)
    #+END_SRC
-** Paredit
+** Lisp
+*** Slime
+#+BEGIN_SRC emacs-lisp
+  (setq slime-contribs '(slime-fancy
+                         slime-indentation
+                         slime-sbcl-exts
+                         slime-scratch)
+        inferior-lisp-program "sbcl")
+#+END_SRC
+*** Paredit
   #+BEGIN_SRC emacs-lisp
-  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-  (add-hook 'clojure-mode-hook 'paredit-mode)
+    (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+    (add-hook 'clojure-mode-hook 'paredit-mode)
   #+END_SRC
 * Custom Code
 ** Region to Gist 

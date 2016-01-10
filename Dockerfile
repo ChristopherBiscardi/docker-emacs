@@ -38,5 +38,12 @@ RUN git clone https://github.com/chrisdone/structured-haskell-mode.git ~/.emacs.
 RUN cd ~/.emacs.d/manually/shm && cabal install
 RUN cd ~/.emacs.d/manually/shm/elisp && make
 
+# install sbcl
+RUN apt-get install bzip2 -y
+RUN curl -L http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2 | tar xvj
+RUN cd sbcl-1.3.1-x86-64-linux && \
+    sh install.sh
+
+
 # Default to zsh when running a container
 CMD ["zsh"]
