@@ -139,7 +139,7 @@
    [(1 1)
     nil "Poor-man's namespaces for elisp" single])
  (with-editor .
-   [(2 3 1)
+   [(2 4 0)
     ((emacs
       (24 4))
      (async
@@ -2106,7 +2106,7 @@
 		       (1 0 0)))
 		     "simple keybindings for Magit" single])
  (magit-popup .
-	      [(2 3 1)
+	      [(2 4 0)
 	       ((emacs
 		 (24 4))
 		(async
@@ -2889,13 +2889,13 @@
 	       (2 9 0)))
 	     "draft git commit messages" single])
  (git-commit .
-	     [(2 3 1)
+	     [(2 4 0)
 	      ((emacs
 		(24 4))
 	       (dash
 		(2 12 1))
 	       (with-editor
-		   (2 3 1)))
+		   (2 4 0)))
 	      "Edit Git commit messages" single])
  (git-auto-commit-mode .
 		       [(4 4 0)

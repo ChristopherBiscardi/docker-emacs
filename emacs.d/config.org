@@ -135,15 +135,21 @@
   (setq shell-file-name "zsh")
   (setq shell-command-switch "-ic")
   #+END_SRC
-* ORG-MODE
+* Org-mode
+** Langs
   #+BEGIN_SRC emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)
-   (emacs-lisp . t)
-   (awk . t)
-   (css . t)
-   (js . t)))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((dot . t)
+       (emacs-lisp . t)
+       (awk . t)
+       (css . t)
+       (js . t)))
+  #+END_SRC
+** org-bullets
+  #+BEGIN_SRC emacs-lisp
+    (require 'org-bullets)
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   #+END_SRC
 * Flycheck
 ** boot it
