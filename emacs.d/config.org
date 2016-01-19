@@ -136,6 +136,9 @@
   (setq shell-command-switch "-ic")
   #+END_SRC
 * Org-mode
+  #+BEGIN_SRC emacs-lisp
+    (require 'org)
+  #+END_SRC
 ** Langs
   #+BEGIN_SRC emacs-lisp
     (org-babel-do-load-languages
@@ -146,10 +149,12 @@
        (css . t)
        (js . t)))
   #+END_SRC
-** org-bullets
+** theme
   #+BEGIN_SRC emacs-lisp
     (require 'org-bullets)
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (setq org-hide-leading-stars nil)
+    (setq org-ellipsis " \u25bc")
   #+END_SRC
 * Flycheck
 ** boot it
