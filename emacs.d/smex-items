@@ -1,0 +1,66 @@
+
+;; ----- smex-history -----
+(
+ list-colors-display
+ haskell-mode-jump-to-def
+ haskell-session-change
+ gnus
+ projectile-find-file
+ haskell-mode-stylish-buffer
+ replace-string
+)
+
+;; ----- smex-data -----
+(
+ (package-install . 23)
+ (package-list-packages . 3)
+ (kill-region . 22)
+ (load-theme . 48)
+ (list-packages . 5)
+ (comment-region . 6)
+ (customize-create-theme . 1)
+ (find-face-definition . 2)
+ (customize-face . 3)
+ (recover-this-file . 1)
+ (Custom-set . 1)
+ (customize-face-other-window . 1)
+ (customize-themes . 2)
+ (customize-customized . 1)
+ (custom-theme-visit-theme . 1)
+ (describe-variable . 1)
+ (list-colors-display . 7)
+ (web-mode . 7)
+ (web-mode-set-content-type . 1)
+ (string-insert-rectangle . 3)
+ (ack . 9)
+ (uncomment-region . 2)
+ (paredit-forward-barf-sexp . 1)
+ (compile . 1)
+ (haskell-compile . 1)
+ (flycheck-select-checker . 4)
+ (mkdir . 1)
+ (indent-region . 7)
+ (haskell-mode-jump-to-def . 13)
+ (javascript-mode . 9)
+ (replace-string . 4)
+ (auto-fill-mode . 8)
+ (follow-mode . 1)
+ (fill-region-as-paragraph . 1)
+ (org-open-link-from-string . 1)
+ (sort-lines . 1)
+ (projectile-mode . 1)
+ (projectile-find-file . 5)
+ (projectile-dired . 2)
+ (simpleclip-mode . 1)
+ (simpleclip-copy . 2)
+ (rainbow-delimiters-mode . 2)
+ (css-mode . 3)
+ (rainbow-mode . 2)
+ (less-css-mode . 1)
+ (ace-swap-window . 5)
+ (haskell-mode-stylish-buffer . 7)
+ (dired . 1)
+ (describe-bindings . 1)
+ (gnus . 1)
+ (haskell-session-change . 1)
+)

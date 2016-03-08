@@ -4,14 +4,14 @@
     (require 'package)
     (add-to-list 'package-archives
                  '("marmalade" . "http://marmalade-repo.org/packages/"))
-    (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   #+END_SRC
 ** Manually managed dependencies
   #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/manually/shm/elisp")
-  (add-to-list 'load-path "~/.emacs.d/manually/js3-mode")
-  (add-to-list 'load-path "~/.emacs.d/manually/column-enforce-mode")
-  (package-initialize)
+    ;(add-to-list 'load-path "~/.emacs.d/manually/shm/elisp")
+    ;(add-to-list 'load-path "~/.emacs.d/manually/js3-mode")
+    (add-to-list 'load-path "~/.emacs.d/manually/column-enforce-mode")
+    (package-initialize)
   #+END_SRC
 ** require Common Lisp, request and json
   #+BEGIN_SRC emacs-lisp
@@ -21,6 +21,15 @@
   (require 'json)
   #+END_SRC
 * Basic Tooling, General Settings and One Liners
+** Load Wagon Face
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'wagonhq t)
+#+END_SRC
+** powerline
+   #+BEGIN_SRC emacs-lisp
+     (require 'powerline)
+     (powerline-center-theme)
+   #+END_SRC
 ** Window Movement (Shift+Direction)
   #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings)
@@ -37,13 +46,14 @@
   #+END_SRC  
 ** rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
-  (require 'rainbow-delimiters)
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+    (require 'rainbow-delimiters)
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   #+END_SRC
 ** rainbow representations of hex/etc colors
   #+BEGIN_SRC emacs-lisp
   (add-hook 'less-mode-hook 'rainbow-mode)
   (add-hook 'sass-mode-hook 'rainbow-mode)
+  (add-hook 'web-mode-hook 'rainbow-mode)
   #+END_SRC
 ** Saves
    Make Saves go in another directory
@@ -60,26 +70,12 @@
   #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
   #+END_SRC
-** Keybindings
-*** (C-z) Don't suspend on C-z. I do this too often.
-  #+BEGIN_SRC emacs-lisp
-  (global-unset-key (kbd "C-z"))
-  #+END_SRC
-*** (C-SPC) Ace-Jump-Mode
-  #+BEGIN_SRC emacs-lisp
-  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-  #+END_SRC
-*** (M-x) smex
-  #+BEGIN_SRC emacs-lisp
-  (autoload 'smex "smex"
-    "Smex is a M-x enhancement for Emacs, it provides a convenient interface to your recently and most frequently used commands.")
-  (global-set-key (kbd "M-x") 'smex)
-  #+END_SRC
 ** YASnippets
   #+BEGIN_SRC emacs-lisp
     (setq yas-snippet-dirs
           '("~/.emacs.d/snippets" ;; personal snippets
             "/opt/snippets"       ;; dynamically mounted snippets
+            "~/Dropbox/dotfiles/snippets" ;; Portable Snippets
            ))
     (yas-global-mode 1)
   #+END_SRC
@@ -94,7 +90,7 @@
   (setq ido-everywhere nil
         ido-enable-flex-matching t
         ido-create-new-buffer 'always
-        ido-file-extensions-order '(".hs" ".tpl" ".java" ".js" ".el" ".xml")
+        ido-file-extensions-order '(".hs" ".tpl" ".js" ".jsx" ".el" ".xml")
         ido-use-filename-at-point 'guess
         ido-ignore-extensions t
         ido-use-faces t)
@@ -110,21 +106,12 @@
   (require 'ido-ubiquitous)
   (ido-ubiquitous)
   #+END_SRC
-** Projectile
-  #+BEGIN_SRC emacs-lisp
-  (require 'projectile)
-  (projectile-global-mode)
-  (setq projectile-enable-caching nil
-        projectile-globally-ignored-directories '("target" ".hsenv" "dist" ".vagrant"))
-  (global-set-key "\C-cf" 'projectile-find-file)
-  #+END_SRC
 ** ack
   #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "/path/to/full-ack")
-  (autoload 'ack-same "full-ack" nil t)
-  (autoload 'ack "full-ack" nil t)
-  (autoload 'ack-find-same-file "full-ack" nil t)
-  (autoload 'ack-find-file "full-ack" nil t)
+    (autoload 'ack-same "full-ack" nil t)
+    (autoload 'ack "full-ack" nil t)
+    (autoload 'ack-find-same-file "full-ack" nil t)
+    (autoload 'ack-find-file "full-ack" nil t)
   #+END_SRC
 ** 80 column rule
   #+BEGIN_SRC emacs-lisp
@@ -135,10 +122,69 @@
   (setq shell-file-name "zsh")
   (setq shell-command-switch "-ic")
   #+END_SRC
+** KeyFreq
+   #+BEGIN_SRC emacs-lisp
+     (require 'keyfreq)
+     (setq keyfreq-excluded-commands
+           '(self-insert-command
+             abort-recursive-edit
+             previous-line
+             next-line))
+     (keyfreq-mode 1)
+     (keyfreq-autosave-mode 1)
+   #+END_SRC
+** NeoTree
+   #+BEGIN_SRC emacs-lisp
+     (require 'neotree)
+     (setq neo-smart-open t)
+     (global-set-key [f8] 'neotree-toggle)
+   #+END_SRC
+** abbrGev-mode
+   #+BEGIN_SRC emacs-lisp
+     (dolist (hook '(markdown-mode-hook
+                     text-mode-hook))
+       (add-hook hook (lambda () (abbrev-mode 1))))  
+   #+END_SRC
+** undo-tree
+   #+BEGIN_SRC emacs-lisp
+     (global-undo-tree-mode)
+     (setq undo-tree-visualizer-diff t)
+   #+END_SRC
+** simpleclip
+   #+BEGIN_SRC emacs-lisp
+     (simpleclip-mode 1)
+   #+END_SRC
+* Keybindings
+*** (C-z) Don't suspend on C-z. I do this too often.
+  #+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-z"))
+  #+END_SRC
+*** Avy (previously Ace-Jump-Mode)
+  #+BEGIN_SRC emacs-lisp
+    (avy-setup-default)
+    (global-set-key (kbd "C-c SPC") 'avy-goto-char)
+    (global-set-key (kbd "M-g g") 'avy-goto-line)
+    (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+    (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+  #+END_SRC
+*** ace-window
+    #+BEGIN_SRC emacs-lisp
+      (global-set-key (kbd "C-x o") 'ace-window)
+    #+END_SRC
+*** (M-x) smex
+  #+BEGIN_SRC emacs-lisp
+  (autoload 'smex "smex"
+    "Smex is a M-x enhancement for Emacs, it provides a convenient interface to your recently and most frequently used commands.")
+  (global-set-key (kbd "M-x") 'smex)
+  #+END_SRC
 * Org-mode
   #+BEGIN_SRC emacs-lisp
     (require 'org)
   #+END_SRC
+** setq
+   #+BEGIN_SRC emacs-lisp
+        (setq org-src-fontify-natively t)
+   #+END_SRC
 ** Langs
   #+BEGIN_SRC emacs-lisp
     (org-babel-do-load-languages
@@ -146,6 +192,7 @@
      '((dot . t)
        (emacs-lisp . t)
        (awk . t)
+       (haskell . t)
        (css . t)
        (js . t)))
   #+END_SRC
@@ -153,7 +200,7 @@
   #+BEGIN_SRC emacs-lisp
     (require 'org-bullets)
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    (setq org-hide-leading-stars nil)
+    (setq org-hide-leading-stars t)
     (setq org-ellipsis " \u25bc")
   #+END_SRC
 * Flycheck
@@ -178,9 +225,74 @@
                   (append flycheck-disabled-checkers
                           '(json-jsonlist)))
   #+END_SRC
+* Magit
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-x g") 'magit-status)
+  #+END_SRC
 * LANG
-** Haskell Modes
+** Haskell
+*** Flycheck
+#+BEGIN_SRC emacs-lisp
+  (defun haskell-mode-setup-hook ()
+    (interactive)
+    (progn
+      ;; ...
+      (flycheck-select-checker 'haskell-stack-ghc)))
+
+  (add-hook 'haskell-mode-hook 'haskell-mode-setup-hook)
+#+END_SRC
 *** Haskell Mode
+**** ghc-init
+     #+BEGIN_SRC emacs-lisp
+       (add-hook 'haskell-mode-hook 'ghc-init)
+     #+END_SRC
+**** setq
+#+BEGIN_SRC emacs-lisp
+  (setq
+   ;; Use notify.el (if you have it installed) at the end of running
+   ;; Cabal commands or generally things worth notifying.
+   haskell-notify-p t
+   ;; To enable tags generation on save.
+   haskell-tags-on-save t
+   ;; Remove annoying error popups
+   haskell-interactive-popup-errors nil
+   ;; Better import handling
+   haskell-process-suggest-remove-import-lines t
+   haskell-process-auto-import-loaded-modules t
+   ;; Disable haskell-stylish-on-save, as it breaks flycheck highlighting.
+   ;; NOTE: May not be true anymore - taksuyu 2015-10-06
+   haskell-stylish-on-save nil)
+
+  ;; align rules for Haskell
+  (with-eval-after-load 'align
+    (add-to-list 'align-rules-list
+                 '(haskell-types
+                   (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-assignment
+                   (regexp . "\\(\\s-+\\)=\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-arrows
+                   (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-left-arrows
+                   (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode)))))
+
+
+#+END_SRC
+**** Force haskell-mode on cabal-mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'haskell-cabal-mode-hook (require 'haskell-mode))
+#+END_SRC
+**** Remove overlays from ghc-check.el because flycheck is enabled
+#+BEGIN_SRC emacs-lisp
+  ;(set-face-attribute 'ghc-face-error nil :underline nil)
+  ;(set-face-attribute 'ghc-face-warn nil :underline nil)
+#+END_SRC
 **** Indentation
      #+BEGIN_SRC emacs-lisp
        ; haskell-mode indentation is incompatible with structured-haskell-mode
@@ -194,44 +306,46 @@
        (eval-after-load "haskell-cabal"
            '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
      #+END_SRC
-*** structured-haskell-mode
+*** haskell-interactive-mode
     #+BEGIN_SRC emacs-lisp
-      (require 'shm)
-      (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-      (setq shm-program-name "structured-haskell-mode")
+      (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+      (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+      (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+      (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+      (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+      (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+      (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+      (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+      (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
+      ; cabal-mode
+      ;; (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
+      ;; (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+      ;; (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+      ;; (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
     #+END_SRC
 *** Stylish-Haskell (on-save)
     #+BEGIN_SRC emacs-lisp
-      (setq haskell-stylish-on-save t)
+      ;(setq haskell-stylish-on-save t)
     #+END_SRC
 *** ghc-mod
    #+BEGIN_SRC emacs-lisp
-   (autoload 'ghc-init "ghc" nil t)
+   ;(autoload 'ghc-init "ghc" nil t)
    #+END_SRC
 *** Graveyard
-**** Flymake
-   #+BEGIN_SRC emacs-lisp
-   ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
-   #+END_SRC
+**** structured-haskell-mode
+     #+BEGIN_SRC emacs-lisp
+       ;(require 'shm)
+       ;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+       ;(setq shm-program-name "structured-haskell-mode")
+     #+END_SRC
 ** JavaScript
-*** js3-mode
-   #+BEGIN_SRC emacs-lisp
-   (autoload 'js3-mode "js3" nil t)
-   (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
-   (custom-set-variables
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-    '(js3-indent-level 0)
-    '(js3-auto-indent-p t)
-    '(js3-indent-on-enter-key t) ; fix indenting before moving on
-    '(js3-enter-indents-newline t) ; don't need to push tab before typing
-    '(js3-consistent-level-indent-inner-bracket t)
-    '(js3-lazy-commas t)
-    '(js3-expr-indent-offset 2)
-    '(js3-paren-indent-offset 2)
-    '(js3-square-indent-offset 2)
-    '(js3-curly-indent-offset 2))
-   #+END_SRC
+*** web-mode
+**** Force *jsx* mode for all .jsx? files
+     This gives us JSX highlighting
+      #+BEGIN_SRC emacs-lisp
+        (setq web-mode-content-types-alist
+              '(("jsx" . "\\.js[x]?\\'")))
+      #+END_SRC
 *** js2-mode
    #+BEGIN_SRC emacs-lisp
      ;; adjust indents for web-mode to 2 spaces
@@ -264,32 +378,9 @@
     (add-hook 'clojure-mode-hook 'paredit-mode)
   #+END_SRC
 * Custom Code
-** Region to Gist 
-  #+BEGIN_SRC emacs-lisp
-  (defun region-to-gist (start end)
-    "Sends region to Gist"
-    (interactive "r")
-    (gist-req (buffer-substring-no-properties start end)))
-  
-  (defun gist-test (buf)
-    (message "%S" `(:content ,buf)))
-  
-  (defun gist-req (buf)
-    (request
-         "https://api.github.com/gists"
-         :type "POST"
-         :data (json-encode `(:description "Created with Christopher Biscardi's region-to-gist"
-          :public t
-          :files (:example.el (:content ,buf))))
-         ;; :data "key=value&key2=value2"  ; this is equivalent
-         :parser 'json-read
-         :success (function*
-          (lambda (&key data &allow-other-keys)
-  	   (message "I sent: %S" (assoc-default 'html_url data)))))
-    nil)
-  #+END_SRC
 * File Associations
   #+BEGIN_SRC emacs-lisp
+    (add-to-list 'auto-mode-alist '("Dockerfile" . shell-script-mode))
     (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
     (add-to-list 'auto-mode-alist '("emacs" . lisp-mode))
     (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
@@ -297,15 +388,44 @@
     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
     (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
     (add-to-list 'auto-mode-alist '("\\.rc$" . restclient-mode))
-    (add-to-list 'auto-mode-alist '("\\.json$" . js3-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
-    (add-to-list 'auto-mode-alist '("Dockerfile" . shell-script-mode))
+    (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+    ; custom rc files for JS projects
+    (add-to-list 'auto-mode-alist '("\\.faterc$" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.leorc$" . web-mode))
   #+END_SRC
 * Graveyard
   Stuff not in use or temporarily-permanently disabled
+** General
   #+BEGIN_SRC emacs-lisp
   ;; ;;; find file at point
   ;; (require 'ffap)
   ;; ;; rebind C-x C-f and others to the ffap bindings (see variable ffap-bindings)
   ;; (ffap-bindings)
+  #+END_SRC
+** Projectile
+  #+BEGIN_SRC emacs-lisp
+    ;; (require 'projectile)
+    ;; (projectile-global-mode)
+    ;; (setq projectile-enable-caching nil
+    ;;       projectile-globally-ignored-directories '("target" ".hsenv" "dist" ".vagrant"))
+    ;; (global-set-key "\C-cf" 'projectile-find-file)
+  #+END_SRC
+** js3-mode
+  #+BEGIN_SRC emacs-lisp
+    ;; (autoload 'js3-mode "js3" nil t)
+    ;; (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+    ;; (custom-set-variables
+    ;;   ;; Your init file should contain only one such instance.
+    ;;   ;; If there is more than one, they won't work right.
+    ;;  '(js3-indent-level 0)
+    ;;  '(js3-auto-indent-p t)
+    ;;  '(js3-indent-on-enter-key t) ; fix indenting before moving on
+    ;;  '(js3-enter-indents-newline t) ; don't need to push tab before typing
+    ;;  '(js3-consistent-level-indent-inner-bracket t)
+    ;;  '(js3-lazy-commas t)
+    ;;  '(js3-expr-indent-offset 2)
+    ;;  '(js3-paren-indent-offset 2)
+    ;;  '(js3-square-indent-offset 2)
+    ;;  '(js3-curly-indent-offset 2))
   #+END_SRC

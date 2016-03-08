@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "ghc" "ghc.el" (22173 36409 0 0))
-;;; Generated autoloads from ghc.el
+;;;### (autoloads nil "ghc" "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc.el"
+;;;;;;  "0b2175a1efe462f93524446a5c8d5812")
+;;; Generated autoloads from ../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc.el
 
 (autoload 'ghc-init "ghc" "\
 
@@ -18,10 +19,20 @@
 
 ;;;***
 
-;;;### (autoloads nil nil ("ghc-check.el" "ghc-command.el" "ghc-comp.el"
-;;;;;;  "ghc-doc.el" "ghc-func.el" "ghc-indent.el" "ghc-info.el"
-;;;;;;  "ghc-ins-mod.el" "ghc-pkg.el" "ghc-process.el" "ghc-rewrite.el")
-;;;;;;  (22173 36409 947980 922000))
+;;;### (autoloads nil nil ("../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-autoloads.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-check.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-command.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-comp.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-doc.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-func.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-indent.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-info.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-ins-mod.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-pkg.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-process.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc-rewrite.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/ghc-20160108.701/ghc.el")
+;;;;;;  (22224 6393 259455 0))
 
 ;;;***
 

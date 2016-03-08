@@ -3,7 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil nil ("seq.el") (22173 36412 410219 739000))
+;;;### (autoloads nil nil ("../../../../../../.emacs.d/elpa/seq-1.11/seq-autoloads.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/seq-1.11/seq.el") (22223
+;;;;;;  58162 286764 0))
 
 ;;;***
 

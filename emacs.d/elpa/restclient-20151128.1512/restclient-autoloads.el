@@ -3,9 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "restclient" "restclient.el" (22173 36292 0
-;;;;;;  0))
-;;; Generated autoloads from restclient.el
+;;;### (autoloads nil "restclient" "../../../../../../.emacs.d/elpa/restclient-20151128.1512/restclient.el"
+;;;;;;  "508a95ceb4e84e20b4fd3d74e494d0f4")
+;;; Generated autoloads from ../../../../../../.emacs.d/elpa/restclient-20151128.1512/restclient.el
 
 (autoload 'restclient-http-send-current "restclient" "\
 Sends current request.
@@ -28,6 +28,12 @@ Send current request and keep focus in request window.
 Turn on restclient mode.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../../.emacs.d/elpa/restclient-20151128.1512/restclient-autoloads.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/restclient-20151128.1512/restclient.el")
+;;;;;;  (22224 7515 360697 0))
 
 ;;;***
 

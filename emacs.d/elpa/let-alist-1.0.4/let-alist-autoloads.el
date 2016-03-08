@@ -3,8 +3,9 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "let-alist" "let-alist.el" (22173 36356 0 0))
-;;; Generated autoloads from let-alist.el
+;;;### (autoloads nil "let-alist" "../../../../../../.emacs.d/elpa/let-alist-1.0.4/let-alist.el"
+;;;;;;  "83d165daee025ab3872c39ab31577ee5")
+;;; Generated autoloads from ../../../../../../.emacs.d/elpa/let-alist-1.0.4/let-alist.el
 
 (autoload 'let-alist "let-alist" "\
 Let-bind dotted symbols to their cdrs in ALIST and execute BODY.
@@ -38,6 +39,12 @@ displayed in the example above.
 \(fn ALIST &rest BODY)" nil t)
 
 (put 'let-alist 'lisp-indent-function '1)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../../.emacs.d/elpa/let-alist-1.0.4/let-alist-autoloads.el"
+;;;;;;  "../../../../../../.emacs.d/elpa/let-alist-1.0.4/let-alist.el")
+;;;;;;  (22223 58162 573837 0))
 
 ;;;***
 
